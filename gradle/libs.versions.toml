@@ -1,0 +1,56 @@
+[versions]
+spring-boot-starter = "3.4.3"
+testcontainers = "1.20.5"
+dgs-spring-graphql = "10.0.3"
+flyway = "10.20.1"
+kotlin = "1.9.25"
+kotlinx-coroutines = "1.8.1"
+jackson-module = "2.18.2"
+micrometer-prometheus = "1.14.4"
+postgresql = "42.7.5"
+r2dbc-postgresql = "1.0.7.RELEASE"
+reactor-test = "3.6.1"
+junit-platform-launcher = "1.11.4"
+micrometer-tracing = "1.4.3"
+reactor-kotlin = "1.2.3"
+sentry = "8.2.0"
+springframework = "6.2.3"
+
+[libraries]
+spring-starter-actuator = { group = "org.springframework.boot", name = "spring-boot-starter-actuator", version.ref = "spring-boot-starter" }
+spring-starter-data-elasticsearch = { group = "org.springframework.boot", name = "spring-boot-starter-data-elasticsearch", version.ref = "spring-boot-starter" }
+spring-starter-data-r2dbc = { group = "org.springframework.boot", name = "spring-boot-starter-data-r2dbc", version.ref = "spring-boot-starter" }
+spring-starter-jooq = { group = "org.springframework.boot", name = "spring-boot-starter-jooq", version.ref = "spring-boot-starter" }
+spring-starter-webflux = { group = "org.springframework.boot", name = "spring-boot-starter-webflux", version.ref = "spring-boot-starter" }
+jackson-module-kotlin = { group = "com.fasterxml.jackson.module", name = "jackson-module-kotlin", version.ref = "jackson-module" }
+dgs-spring-graphql-starter = { group = "com.netflix.graphql.dgs", name = "graphql-dgs-spring-graphql-starter", version.ref = "dgs-spring-graphql" }
+migrometer-tracing-bridge-brave = { group = "io.micrometer", name = "micrometer-tracing-bridge-brave", version.ref = "micrometer-tracing" }
+reactor-kotlin-extensions = { group = "io.projectreactor.kotlin", name = "reactor-kotlin-extensions", version.ref = "reactor-kotlin" }
+sentry = { group = "io.sentry", name = "sentry-spring-boot-starter-jakarta", version.ref = "sentry" }
+flyway-core = { group = "org.flywaydb", name = "flyway-core", version.ref = "flyway" }
+flyway-postgresql = { group = "org.flywaydb", name = "flyway-database-postgresql", version.ref = "flyway" }
+kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin" }
+kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-reactor", version.ref = "kotlinx-coroutines" }
+spring-jdbc = { group = "org.springframework", name = "spring-jdbc", version.ref = "springframework" }
+micrometer-prometheus = { group = "io.micrometer", name = "micrometer-registry-prometheus", version.ref = "micrometer-prometheus" }
+postgresql = { group = "org.postgresql", name = "postgresql", version.ref = "postgresql" }
+r2dbc-postgresql = { group = "org.postgresql", name = "r2dbc-postgresql", version.ref = "r2dbc-postgresql" }
+spring-boot-starter-test = { group = "org.springframework.boot", name = "spring-boot-starter-test", version.ref = "spring-boot-starter" }
+spring-boot-testcontainers = { group = "org.springframework.boot", name = "spring-boot-testcontainers", version.ref= "spring-boot-starter" }
+dgs-spring-graphql-test = { group = "com.netflix.graphql.dgs", name = "graphql-dgs-spring-graphql-starter-test", version.ref = "dgs-spring-graphql" }
+reactor-test = { group = "io.projectreactor", name = "reactor-test", version.ref = "reactor-test" }
+kotlin-test-junit5 = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit5", version.ref = "kotlin" }
+kotlin-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+testcontainers-elasticsearch = { group = "org.testcontainers", name = "elasticsearch", version.ref = "testcontainers" }
+testcontainers-junit-jupiter = { group = "org.testcontainers", name = "junit-jupiter", version.ref = "testcontainers" }
+testcontainers-postgresql = { group = "org.testcontainers", name = "postgresql", version.ref = "testcontainers" }
+testcontainers-r2dbc = { group = "org.testcontainers", name = "r2dbc", version.ref = "testcontainers" }
+junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junit-platform-launcher" }
+
+[bundles]
+languages = ["kotlin-reflect", "kotlinx-coroutines", "jackson-module-kotlin", "reactor-kotlin-extensions"]
+db-setup = ["spring-starter-data-elasticsearch", "spring-starter-data-r2dbc", "spring-starter-jooq", "spring-jdbc", "flyway-core"]
+postgres = ["postgresql", "r2dbc-postgresql", "flyway-postgresql"]
+test-setup = ["spring-boot-starter-test", "reactor-test", "kotlin-test-junit5", "kotlin-coroutines-test"]
+test-db = ["spring-boot-testcontainers", "kotlin-coroutines-test", "testcontainers-elasticsearch", "testcontainers-junit-jupiter", "testcontainers-postgresql", "testcontainers-r2dbc"]
+monitoring = ["spring-starter-actuator", "micrometer-prometheus", "sentry", "migrometer-tracing-bridge-brave"]
