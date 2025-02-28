@@ -2,6 +2,7 @@
 spring-boot-starter = "3.4.3"
 testcontainers = "1.20.5"
 dgs-spring-graphql = "10.0.3"
+dgs-codegen = "7.0.3"
 flyway = "10.20.1"
 kotlin = "1.9.25"
 kotlinx-coroutines = "1.8.1"
@@ -15,6 +16,19 @@ micrometer-tracing = "1.4.3"
 reactor-kotlin = "1.2.3"
 sentry = "8.2.0"
 springframework = "6.2.3"
+dependency-management = "1.1.7"
+graalvm = "0.10.5"
+detekt = "1.23.8"
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot-starter" }
+dependency-management = { id = "io.spring.dependency-management", version.ref = "dependency-management" }
+flyway = { id = "org.flywaydb.flyway", version.ref = "flyway" }
+dgs-codegen = { id = "com.netflix.dgs.codegen", version.ref = "dgs-codegen" }
+graalvm = { id = "org.graalvm.buildtools.native", version.ref = "graalvm" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 
 [libraries]
 spring-starter-actuator = { group = "org.springframework.boot", name = "spring-boot-starter-actuator", version.ref = "spring-boot-starter" }

@@ -1,10 +1,14 @@
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+
 plugins {
-    kotlin("jvm") version "1.9.25"
-    kotlin("plugin.spring") version "1.9.25"
-    id("org.springframework.boot") version "3.4.3"
-    id("io.spring.dependency-management") version "1.1.7"
-    id("com.netflix.dgs.codegen") version "7.0.3"
-    id("org.graalvm.buildtools.native") version "0.10.5"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.spring)
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.dependency.management)
+    alias(libs.plugins.dgs.codegen)
+    alias(libs.plugins.graalvm)
+    alias(libs.plugins.detekt)
+    `java-test-fixtures`
 }
 
 group = "io.contents"
@@ -16,23 +20,55 @@ java {
     }
 }
 
-repositories {
-    mavenCentral()
+allprojects {
+    repositories {
+        mavenCentral()
+    }
 }
 
 extra["netflixDgsVersion"] = "10.0.3"
 extra["sentryVersion"] = "8.2.0"
 
-dependencies {
-    implementation(libs.bundles.languages)
-    implementation(libs.spring.starter.webflux)
-    implementation(libs.bundles.monitoring)
-    implementation(libs.bundles.db.setup)
-    runtimeOnly(libs.bundles.postgres)
-    implementation(libs.dgs.spring.graphql.starter)
-    testImplementation(libs.bundles.test.setup)
-    testImplementation(libs.bundles.test.db)
-    testRuntimeOnly(libs.junit.platform.launcher)
+subprojects {
+    apply(
+        plugin =
+            rootProject.libs.plugins.kotlin.jvm
+                .get()
+                .pluginId,
+    )
+    apply(
+        plugin =
+            rootProject.libs.plugins.kotlin.spring
+                .get()
+                .pluginId,
+    )
+    apply(
+        plugin =
+            rootProject.libs.plugins.spring.boot
+                .get()
+                .pluginId,
+    )
+    apply(
+        plugin =
+            rootProject.libs.plugins.dependency.management
+                .get()
+                .pluginId,
+    )
+    apply(
+        plugin =
+            rootProject.libs.plugins.detekt
+                .get()
+                .pluginId,
+    )
+    apply(plugin = "java-test-fixtures")
+
+    dependencies {
+        implementation(rootProject.libs.spring.starter.webflux)
+        implementation(rootProject.libs.bundles.monitoring)
+        implementation(rootProject.libs.bundles.languages)
+
+        testRuntimeOnly(rootProject.libs.junit.platform.launcher)
+    }
 }
 
 dependencyManagement {
@@ -56,4 +92,12 @@ tasks.generateJava {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.getByName<BootJar>("bootJar") {
+    enabled = false
+}
+
+tasks.getByName<Jar>("jar") {
+    enabled = true
 }
