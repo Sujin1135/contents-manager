@@ -1,0 +1,6 @@
+[submodule "subproject/interface/channel-page-collector-interface"]
+	path = subproject/interface/channel-page-collector-interface
+	url = git@github.com:Sujin1135/channel-page-collector-interface.git
+[submodule "subproject/interface/channel-collector-interface"]
+	path = subproject/interface/channel-collector-interface
+	url = git@github.com:Sujin1135/channel-collector-interface.git
