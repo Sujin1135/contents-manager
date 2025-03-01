@@ -1,4 +1,4 @@
-package io.contents
+package io.contents.collector
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

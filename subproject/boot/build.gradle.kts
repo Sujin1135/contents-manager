@@ -6,5 +6,5 @@ dependencies {
 }
 
 springBoot {
-    mainClass.set("io.contents.CollectorApplicationKt")
+    mainClass.set("io.contents.collector.CollectorApplicationKt")
 }

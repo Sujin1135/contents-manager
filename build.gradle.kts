@@ -11,7 +11,7 @@ plugins {
     `java-test-fixtures`
 }
 
-group = "io.contents"
+group = "io.contents.collector"
 version = "0.0.1-SNAPSHOT"
 
 java {
@@ -86,7 +86,7 @@ kotlin {
 
 tasks.generateJava {
     schemaPaths.add("$projectDir/src/main/resources/graphql-client")
-    packageName = "io.contents.codegen"
+    packageName = "io.contents.collector.codegen"
     generateClient = true
 }
 
