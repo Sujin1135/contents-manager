@@ -1,0 +1,5 @@
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://${CONF_DB_HOST:localhost}:${CONF_DB_PORT:5432}/${CONF_DB_DATABASE:content}
+    username: ${CONF_DB_USERNAME:postgres}
+    password: ${CONF_DB_PASSWORD:password123!}

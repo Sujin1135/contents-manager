@@ -63,7 +63,7 @@ junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform
 
 [bundles]
 languages = ["kotlin-reflect", "kotlinx-coroutines", "jackson-module-kotlin", "reactor-kotlin-extensions"]
-db-setup = ["spring-starter-data-elasticsearch", "spring-starter-data-r2dbc", "spring-starter-jooq", "spring-jdbc", "flyway-core"]
+db-setup = ["spring-starter-data-r2dbc", "spring-starter-jooq", "spring-jdbc", "flyway-core"]
 postgres = ["postgresql", "r2dbc-postgresql", "flyway-postgresql"]
 test-setup = ["spring-boot-starter-test", "reactor-test", "kotlin-test-junit5", "kotlin-coroutines-test"]
 test-db = ["spring-boot-testcontainers", "kotlin-coroutines-test", "testcontainers-elasticsearch", "testcontainers-junit-jupiter", "testcontainers-postgresql", "testcontainers-r2dbc"]
