@@ -68,6 +68,9 @@ subprojects {
         implementation(rootProject.libs.bundles.languages)
         implementation(rootProject.libs.bundles.arrow.kt)
 
+        testImplementation(rootProject.libs.blockhound)
+        testImplementation(rootProject.libs.bundles.kotest)
+
         testRuntimeOnly(rootProject.libs.junit.platform.launcher)
     }
 }

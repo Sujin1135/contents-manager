@@ -20,6 +20,10 @@ dependency-management = "1.1.7"
 graalvm = "0.10.5"
 detekt = "1.23.8"
 arrow-kt = "2.0.1"
+blockhound = "1.0.11.RELEASE"
+kotest-arrow-kt = "1.4.0"
+kotest = "5.9.1"
+kotest-spring = "1.3.0"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -63,6 +67,12 @@ testcontainers-r2dbc = { group = "org.testcontainers", name = "r2dbc", version.r
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junit-platform-launcher" }
 arrow-core = { group = "io.arrow-kt", name = "arrow-core", version.ref = "arrow-kt" }
 arrow-fx-coroutines = { group = "io.arrow-kt", name = "arrow-fx-coroutines", version.ref = "arrow-kt" }
+blockhound = { group = "io.projectreactor.tools", name = "blockhound", version.ref = "blockhound" }
+kotest = { group = "io.kotest", name = "kotest-runner-junit5-jvm", version.ref = "kotest" }
+kotest-assertion = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "kotest" }
+kotest-spring = { group = "io.kotest.extensions", name = "kotest-extensions-spring", version.ref = "kotest-spring" }
+kotest-arrow-kt = { group = "io.kotest.extensions", name = "kotest-assertions-arrow", version.ref = "kotest-arrow-kt" }
+kotest-blockhound = { group = "io.kotest", name = "kotest-extensions-blockhound", version.ref = "kotest" }
 
 [bundles]
 languages = ["kotlin-reflect", "kotlinx-coroutines", "jackson-module-kotlin", "reactor-kotlin-extensions"]
@@ -72,3 +82,4 @@ test-setup = ["spring-boot-starter-test", "reactor-test", "kotlin-test-junit5", 
 test-db = ["spring-boot-testcontainers", "kotlin-coroutines-test", "testcontainers-elasticsearch", "testcontainers-junit-jupiter", "testcontainers-postgresql", "testcontainers-r2dbc"]
 monitoring = ["spring-starter-actuator", "micrometer-prometheus", "sentry", "migrometer-tracing-bridge-brave"]
 arrow-kt = ["arrow-core", "arrow-fx-coroutines"]
+kotest = ["kotest", "kotest-assertion", "kotest-spring", "kotest-arrow-kt", "kotest-blockhound"]
