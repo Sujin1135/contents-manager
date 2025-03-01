@@ -19,6 +19,7 @@ springframework = "6.2.3"
 dependency-management = "1.1.7"
 graalvm = "0.10.5"
 detekt = "1.23.8"
+arrow-kt = "2.0.1"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -60,6 +61,8 @@ testcontainers-junit-jupiter = { group = "org.testcontainers", name = "junit-jup
 testcontainers-postgresql = { group = "org.testcontainers", name = "postgresql", version.ref = "testcontainers" }
 testcontainers-r2dbc = { group = "org.testcontainers", name = "r2dbc", version.ref = "testcontainers" }
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junit-platform-launcher" }
+arrow-core = { group = "io.arrow-kt", name = "arrow-core", version.ref = "arrow-kt" }
+arrow-fx-coroutines = { group = "io.arrow-kt", name = "arrow-fx-coroutines", version.ref = "arrow-kt" }
 
 [bundles]
 languages = ["kotlin-reflect", "kotlinx-coroutines", "jackson-module-kotlin", "reactor-kotlin-extensions"]
@@ -68,3 +71,4 @@ postgres = ["postgresql", "r2dbc-postgresql", "flyway-postgresql"]
 test-setup = ["spring-boot-starter-test", "reactor-test", "kotlin-test-junit5", "kotlin-coroutines-test"]
 test-db = ["spring-boot-testcontainers", "kotlin-coroutines-test", "testcontainers-elasticsearch", "testcontainers-junit-jupiter", "testcontainers-postgresql", "testcontainers-r2dbc"]
 monitoring = ["spring-starter-actuator", "micrometer-prometheus", "sentry", "migrometer-tracing-bridge-brave"]
+arrow-kt = ["arrow-core", "arrow-fx-coroutines"]

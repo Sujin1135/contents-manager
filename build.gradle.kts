@@ -66,6 +66,7 @@ subprojects {
         implementation(rootProject.libs.spring.starter.webflux)
         implementation(rootProject.libs.bundles.monitoring)
         implementation(rootProject.libs.bundles.languages)
+        implementation(rootProject.libs.bundles.arrow.kt)
 
         testRuntimeOnly(rootProject.libs.junit.platform.launcher)
     }
