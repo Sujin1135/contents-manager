@@ -24,6 +24,27 @@ allprojects {
     repositories {
         mavenCentral()
     }
+
+    tasks.withType<Test> {
+
+        useJUnitPlatform()
+
+        jvmArgs("-XX:+AllowRedefinitionToAddDeleteMethods")
+
+        testLogging {
+            showStandardStreams = true
+            events("passed", "skipped", "failed")
+
+            debug {
+                events("standardOut", "standardError")
+                exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+            }
+        }
+
+        doFirst {
+            println(">>>>> TEST JVM ARGS: ${jvmArgs?.joinToString(" ")}")
+        }
+    }
 }
 
 extra["netflixDgsVersion"] = "10.0.3"
@@ -92,10 +113,6 @@ tasks.generateJava {
     schemaPaths.add("$projectDir/src/main/resources/graphql-client")
     packageName = "io.contents.collector.codegen"
     generateClient = true
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
 }
 
 tasks.getByName<BootJar>("bootJar") {
