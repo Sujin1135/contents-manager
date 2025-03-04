@@ -7,4 +7,6 @@ include(
     ":subproject:presentation",
     ":subproject:infrastructure",
     ":subproject:interface",
+    ":subproject:interface:channel-collector-interface",
+    ":subproject:interface:channel-page-collector-interface",
 )

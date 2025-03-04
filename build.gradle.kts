@@ -122,3 +122,14 @@ tasks.getByName<BootJar>("bootJar") {
 tasks.getByName<Jar>("jar") {
     enabled = true
 }
+
+sourceSets {
+    getByName("main") {
+        java {
+            srcDirs(
+                "build/generated/source/proto/main/java",
+                "build/generated/source/proto/main/kotlin",
+            )
+        }
+    }
+}

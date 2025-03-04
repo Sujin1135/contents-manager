@@ -1,4 +1,4 @@
-package io.contents.collector.io.contents.collector.application
+package io.contents.collector.application
 
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.extensions.blockhound.BlockHound
