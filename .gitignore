@@ -41,3 +41,5 @@ out/
 
 ### docker-compose
 postgres-data/
+
+subproject/interface/**/build/
