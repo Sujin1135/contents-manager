@@ -12,7 +12,8 @@ class ChannelController(
     private val collectChannels: CollectChannels,
 ) {
     @PostMapping("/collect")
-    suspend fun collect() {
+    suspend fun collect(): String {
         collectChannels("운동").get()
+        return "Done"
     }
 }
