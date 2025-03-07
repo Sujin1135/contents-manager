@@ -20,45 +20,47 @@ class CollectChannels(
         effect {
             val ch = Channel<List<String>>(Channel.BUFFERED)
 
-            val producerEffect =
-                effect {
-                    try {
-                        channelPageService
-                            .collectYoutubeHandles(keyword, 5) {
-                                println("collected youtube handles $it")
-                                ch.send(it)
-                            }.bind()
-                    } finally {
-                        ch.close()
-                    }
-                }
-
-            val consumerEffect =
-                effect {
-                    awaitAll {
-                        val channelCollectJobs = mutableListOf<Deferred<Unit>>()
-
-                        for (handles in ch) {
-                            println("consuming $handles")
-
-                            channelCollectJobs.add(
-                                async {
-                                    channelService
-                                        .collect(handles) { channel ->
-                                            println("collected channel ${channel.externalId}")
-                                        }.bind()
-                                },
-                            )
-                        }
-                        channelCollectJobs.awaitAll()
-                    }
-                }
-
             parZip(
-                { producerEffect() },
-                { consumerEffect() },
+                { collectYoutubeHandles(keyword, ch).bind() },
+                { collectChannelDetails(ch).bind() },
             ) { _, _ -> }
 
-            println("collected was done by keyword as $keyword")
+            println("collected by keyword: $keyword")
+        }
+
+    private fun collectYoutubeHandles(
+        keyword: String,
+        ch: Channel<List<String>>,
+    ) = effect {
+        try {
+            channelPageService
+                .collectYoutubeHandles(keyword, 5) {
+                    println("collected youtube handles $it")
+                    ch.send(it)
+                }.bind()
+        } finally {
+            ch.close()
+        }
+    }
+
+    private fun collectChannelDetails(ch: Channel<List<String>>) =
+        effect {
+            awaitAll {
+                val channelCollectJobs = mutableListOf<Deferred<Unit>>()
+
+                for (handles in ch) {
+                    println("consuming $handles")
+
+                    channelCollectJobs.add(
+                        async {
+                            channelService
+                                .collect(handles) { channel ->
+                                    println("collected channel ${channel.externalId}")
+                                }.bind()
+                        },
+                    )
+                }
+                channelCollectJobs.awaitAll()
+            }
         }
 }
