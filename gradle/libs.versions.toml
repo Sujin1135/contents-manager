@@ -28,6 +28,7 @@ protobuf-plugin = "0.9.4"
 grpc-protobuf = "1.70.0"
 grpc-kotlin-stub = "1.4.1"
 protoc = "4.29.3"
+mockk = "1.13.17"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -88,6 +89,7 @@ protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protoc
 protoc-kotlin = { group = "com.google.protobuf", name = "protobuf-kotlin", version.ref = "protoc" }
 protobuf-java-util = { group = "com.google.protobuf", name = "protobuf-java-util", version.ref = "protoc"}
 grpc-client-spring = { group = "net.devh", name = "grpc-client-spring-boot-starter", version = "3.1.0.RELEASE" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 
 [bundles]
 languages = ["kotlin-reflect", "kotlinx-coroutines", "jackson-module-kotlin", "reactor-kotlin-extensions"]
@@ -97,6 +99,6 @@ test-setup = ["spring-boot-starter-test", "reactor-test", "kotlin-test-junit5", 
 test-db = ["spring-boot-testcontainers", "kotlin-coroutines-test", "testcontainers-elasticsearch", "testcontainers-junit-jupiter", "testcontainers-postgresql", "testcontainers-r2dbc"]
 monitoring = ["spring-starter-actuator", "micrometer-prometheus", "sentry", "migrometer-tracing-bridge-brave"]
 arrow-kt = ["arrow-core", "arrow-fx-coroutines"]
-kotest = ["kotest", "kotest-assertion", "kotest-spring", "kotest-arrow-kt", "kotest-blockhound"]
+kotest = ["kotest", "kotest-assertion", "kotest-spring", "kotest-arrow-kt", "kotest-blockhound", "mockk"]
 grpc-stub = ["grpc-protobuf", "grpc-stub", "grpc-kotlin-stub", "protoc-gen-grpc-java", "protoc-gen-grpc-kotlin", "grpc-netty"]
 protobuf = ["protoc", "protoc-kotlin", "protobuf-java-util"]
