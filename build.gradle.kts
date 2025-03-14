@@ -93,6 +93,8 @@ subprojects {
         testImplementation(rootProject.libs.bundles.kotest)
 
         testRuntimeOnly(rootProject.libs.junit.platform.launcher)
+
+        testFixturesImplementation(rootProject.libs.bundles.languages)
     }
 }
 

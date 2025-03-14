@@ -5,11 +5,11 @@ import io.contents.collector.application.CollectChannels
 import io.contents.collector.grpc.ChannelPageGrpcKt
 import io.contents.collector.grpc.ChannelPageServiceImpl
 import io.contents.collector.grpc.ChannelServiceImpl
-import io.contents.collector.grpc.GetSubscriberNamesRequest
-import io.contents.collector.grpc.GetSubscriberNamesResponse
+import io.contents.collector.grpc.GetChannelResponseGenerator
+import io.contents.collector.grpc.GetChannelsRequestGenerator
+import io.contents.collector.grpc.GetSubscriberNamesRequestGenerator
+import io.contents.collector.grpc.GetSubscriberNamesResponseGenerator
 import io.contents.collector.grpc.service.ChannelServiceGrpcKt
-import io.contents.collector.grpc.service.GetChannelsRequest
-import io.contents.collector.grpc.service.GetChannelsResponse
 import io.kotest.assertions.arrow.core.shouldBeRight
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.extensions.blockhound.BlockHound
@@ -24,54 +24,15 @@ class CollectChannelsTests :
         extension(BlockHound())
 
         val keyword = "work"
-        val page = 5
 
-        // TODO: extract to testFixtures
         val channelPageStubRequest =
-            GetSubscriberNamesRequest
-                .newBuilder()
-                .setKeyword(keyword)
-                .setPage(page)
-                .build()
+            GetSubscriberNamesRequestGenerator.generate(keyword)
         val channelPageStubResponse =
-            GetSubscriberNamesResponse
-                .newBuilder()
-                .addNames("@work")
-                .addNames("@susu")
-                .addNames("@working_on_the_street")
-                .build()
+            GetSubscriberNamesResponseGenerator.generate()
         val channelStubRequest =
-            GetChannelsRequest
-                .newBuilder()
-                .addAllYoutubeHandles(channelPageStubResponse.namesList.toList())
-                .build()
-        val channelStubResponse =
-            GetChannelsResponse
-                .newBuilder()
-                .setData(
-                    GetChannelsResponse.Data
-                        .newBuilder()
-                        .setChannel(
-                            io.contents.collector.grpc.entity.Channel
-                                .newBuilder()
-                                .setChannelId("test-id")
-                                .setTitle("운동하는 망고")
-                                .setDescription("")
-                                .setIsFamilySafe(false)
-                                .setKeywords("운동 망고 복싱")
-                                .setViewCount(500)
-                                .setTotalSubscriber(5)
-                                .setTotalVideo(3)
-                                .setJointed(
-                                    io.contents.collector.grpc.entity.Channel.Joined
-                                        .newBuilder()
-                                        .setYear(2022)
-                                        .setMonth(8)
-                                        .setDate(18)
-                                        .build(),
-                                ).build(),
-                        ),
-                ).build()
+            GetChannelsRequestGenerator.generate(channelPageStubResponse)
+        val flowOfChannelStubResponse =
+            GetChannelResponseGenerator.generateList(channelPageStubResponse)
         val channelPageStub = mockk<ChannelPageGrpcKt.ChannelPageCoroutineStub>()
         val channelStub = mockk<ChannelServiceGrpcKt.ChannelServiceCoroutineStub>()
         val channelPageService = ChannelPageServiceImpl(channelPageStub)
@@ -84,13 +45,16 @@ class CollectChannelsTests :
 
         coEvery {
             channelStub.getChannels(request = channelStubRequest, headers = any())
-        } returns flowOf(channelStubResponse)
+        } returns flowOfChannelStubResponse
 
         context("it should be able to collect youtube channels by some keyword") {
             given("a keyword") {
                 `when`("request to collect youtube channels") {
-                    then("should save youtube channels related the given keyword") {
+                    then("should work successfully") {
                         collectChannels(keyword).toEither().shouldBeRight()
+                    }
+                    then("should save youtube channels related the given keyword") {
+                        // TODO: will be implemented
                     }
                 }
             }

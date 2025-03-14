@@ -6,4 +6,6 @@ dependencies {
 
     implementation(project(":subproject:interface"))
     implementation(project(":subproject:domain"))
+
+    testFixturesImplementation(project(":subproject:interface"))
 }
