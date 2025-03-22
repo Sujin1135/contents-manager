@@ -29,6 +29,7 @@ grpc-protobuf = "1.70.0"
 grpc-kotlin-stub = "1.4.1"
 protoc = "4.29.3"
 mockk = "1.13.17"
+jooq-plugin = "10.0"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -40,6 +41,7 @@ dgs-codegen = { id = "com.netflix.dgs.codegen", version.ref = "dgs-codegen" }
 graalvm = { id = "org.graalvm.buildtools.native", version.ref = "graalvm" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobuf-plugin" }
+jooq = { id = "nu.studer.jooq", version.ref = "jooq-plugin" }
 
 [libraries]
 spring-starter-actuator = { group = "org.springframework.boot", name = "spring-boot-starter-actuator", version.ref = "spring-boot-starter" }
