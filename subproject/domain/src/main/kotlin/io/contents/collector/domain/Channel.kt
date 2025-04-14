@@ -1,9 +1,10 @@
 package io.contents.collector.domain
 
 import java.time.LocalDate
+import java.util.UUID
 
 data class Channel(
-    val id: Id,
+    val id: Id? = null,
     val externalId: ExternalId,
     val description: Description,
     val familySafety: FamilySafety,
@@ -17,7 +18,7 @@ data class Channel(
 ) {
     @JvmInline
     value class Id(
-        val value: Long,
+        val value: UUID,
     )
 
     @JvmInline

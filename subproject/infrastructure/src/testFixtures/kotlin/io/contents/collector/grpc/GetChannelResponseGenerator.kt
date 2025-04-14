@@ -16,7 +16,7 @@ object GetChannelResponseGenerator {
                             .setChannel(
                                 io.contents.collector.grpc.entity.Channel
                                     .newBuilder()
-                                    .setChannelId(channel)
+                                    .setChannelId(generateRandomYoutubeChannelId())
                                     .setTitle("운동하는 망고")
                                     .setDescription("")
                                     .setIsFamilySafe(false)
@@ -35,4 +35,16 @@ object GetChannelResponseGenerator {
                             ),
                     ).build()
             }.asFlow()
+
+    private fun generateRandomYoutubeChannelId(): String {
+        val chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
+        val random = java.util.Random()
+        val idBuilder = StringBuilder("UC")
+
+        repeat(22) {
+            idBuilder.append(chars[random.nextInt(chars.length)])
+        }
+
+        return idBuilder.toString()
+    }
 }

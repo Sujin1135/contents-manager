@@ -6,6 +6,7 @@ import arrow.fx.coroutines.await.awaitAll
 import arrow.fx.coroutines.parZip
 import io.contents.collector.grpc.ChannelPageService
 import io.contents.collector.grpc.ChannelService
+import io.contents.collector.repository.ChannelRepository
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.channels.Channel
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service
 class CollectChannels(
     private val channelPageService: ChannelPageService,
     private val channelService: ChannelService,
+    private val channelRepository: ChannelRepository,
 ) {
     operator fun invoke(keyword: String): Effect<Nothing, Unit> =
         effect {
@@ -56,6 +58,7 @@ class CollectChannels(
                             channelService
                                 .collect(handles) { channel ->
                                     println("collected channel ${channel.externalId}")
+                                    channelRepository.save(channel).bind()
                                 }.bind()
                         },
                     )

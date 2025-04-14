@@ -32,7 +32,6 @@ class ChannelServiceImpl(
 
                             block(
                                 Channel(
-                                    id = Channel.Id(0),
                                     externalId = Channel.ExternalId(data.channelId),
                                     description = Channel.Description(data.description),
                                     familySafety = Channel.FamilySafety(data.isFamilySafe),

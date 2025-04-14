@@ -98,7 +98,17 @@ languages = ["kotlin-reflect", "kotlinx-coroutines", "jackson-module-kotlin", "r
 db-setup = ["spring-starter-data-r2dbc", "spring-starter-jooq", "spring-jdbc", "flyway-core"]
 postgres = ["postgresql", "r2dbc-postgresql", "flyway-postgresql"]
 test-setup = ["spring-boot-starter-test", "reactor-test", "kotlin-test-junit5", "kotlin-coroutines-test"]
-test-db = ["spring-boot-testcontainers", "kotlin-coroutines-test", "testcontainers-elasticsearch", "testcontainers-junit-jupiter", "testcontainers-postgresql", "testcontainers-r2dbc"]
+test-db = [
+    "spring-boot-testcontainers",
+    "kotlin-coroutines-test",
+    "testcontainers-elasticsearch",
+    "testcontainers-junit-jupiter",
+    "testcontainers-postgresql",
+    "testcontainers-r2dbc",
+    "flyway-core",
+    "flyway-postgresql",
+    "spring-starter-jooq",
+]
 monitoring = ["spring-starter-actuator", "micrometer-prometheus", "sentry", "migrometer-tracing-bridge-brave"]
 arrow-kt = ["arrow-core", "arrow-fx-coroutines"]
 kotest = ["kotest", "kotest-assertion", "kotest-spring", "kotest-arrow-kt", "kotest-blockhound", "mockk"]
