@@ -24,6 +24,9 @@ class ChannelRepositoryImpl(
             dslContext
                 .insertInto(CHANNELS)
                 .set(channel.toRecord())
+                .onConflict()
+                .doUpdate()
+                .setAllToExcluded()
                 .awaitFirst()
         }
 

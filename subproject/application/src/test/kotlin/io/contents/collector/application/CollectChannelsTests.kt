@@ -21,6 +21,7 @@ import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.extensions.blockhound.BlockHound
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.flow.flowOf
@@ -94,6 +95,36 @@ class CollectChannelsTests(
                             response.data.channel.jointed.date shouldBe sut?.joined?.value?.dayOfMonth
                             response.data.channel.totalSubscriber shouldBe sut?.totalSubscriber?.value
                         }
+                    }
+                }
+            }
+            given("a same keyword") {
+                collectChannels(keyword).toEither().shouldBeRight()
+
+                then("should be updated from same data") {
+                    collectChannels(keyword).toEither().shouldBeRight()
+                }
+
+                then("should be updated from data with all updated fields except channelId") {
+                    val collectedChannels = flowOfChannelStubResponse.toList()
+
+                    coEvery {
+                        channelStub.getChannels(request = channelStubRequest, headers = any())
+                    } returns GetChannelResponseGenerator.generateListByChannelsResponse(collectedChannels)
+
+                    collectChannels(keyword).toEither().shouldBeRight()
+
+                    collectedChannels.forEach { response ->
+                        val sut = channelRepository.findByExternalId(Channel.ExternalId(response.data.channel.channelId)).getOrNull()
+                        response.data.channel.shouldNotBeNull()
+                        response.data.channel.channelId shouldBe sut?.externalId?.value
+
+                        response.data.channel.description shouldNotBe sut?.description?.value
+                        response.data.channel.totalVideo shouldNotBe sut?.totalVideo?.value
+                        response.data.channel.jointed.year shouldNotBe sut?.joined?.value?.year
+                        response.data.channel.jointed.month shouldNotBe sut?.joined?.value?.monthValue
+                        response.data.channel.jointed.date shouldNotBe sut?.joined?.value?.dayOfMonth
+                        response.data.channel.totalSubscriber shouldNotBe sut?.totalSubscriber?.value
                     }
                 }
             }

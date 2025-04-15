@@ -36,6 +36,37 @@ object GetChannelResponseGenerator {
                     ).build()
             }.asFlow()
 
+    fun generateListByChannelsResponse(list: List<GetChannelsResponse>): Flow<GetChannelsResponse> =
+        list
+            .map { channel ->
+                GetChannelsResponse
+                    .newBuilder()
+                    .setData(
+                        GetChannelsResponse.Data
+                            .newBuilder()
+                            .setChannel(
+                                io.contents.collector.grpc.entity.Channel
+                                    .newBuilder()
+                                    .setChannelId(channel.data.channel.channelId)
+                                    .setTitle("타이틀 수정")
+                                    .setDescription("업데이트")
+                                    .setIsFamilySafe(true)
+                                    .setKeywords("수정 키워드")
+                                    .setViewCount(300)
+                                    .setTotalSubscriber(2)
+                                    .setTotalVideo(1)
+                                    .setJointed(
+                                        io.contents.collector.grpc.entity.Channel.Joined
+                                            .newBuilder()
+                                            .setYear(2023)
+                                            .setMonth(2)
+                                            .setDate(12)
+                                            .build(),
+                                    ).build(),
+                            ),
+                    ).build()
+            }.asFlow()
+
     private fun generateRandomYoutubeChannelId(): String {
         val chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
         val random = java.util.Random()
