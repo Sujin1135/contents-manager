@@ -1,0 +1,1 @@
+// Add null check or safe call operator (?.) or let/also scope function to handle potential null values safely
