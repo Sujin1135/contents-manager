@@ -30,6 +30,10 @@ class SentryTestRunner {
         val activeChannelCount = 0
         // ChannelRepositoryImpl.kt 의 totalEvents / activeChannelCount 같은 패턴
         ChannelRepositoryImpl::class.java // stack trace에 클래스 참조 포함
+        // Simulate the division by zero error without actually crashing
+        if (activeChannelCount == 0) {
+            throw ArithmeticException("/ by zero")
+        }
         val avgEventsPerChannel = totalEvents / activeChannelCount
     }
 }
