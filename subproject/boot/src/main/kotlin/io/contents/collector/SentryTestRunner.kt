@@ -14,7 +14,7 @@ class SentryTestRunner {
     @EventListener(ApplicationReadyEvent::class)
     fun sendTestEvent() {
         try {
-            simulateNullPointerInToDomainV2()
+            simulateArithmeticInChannelMetrics()
         } catch (e: Exception) {
             Sentry.captureException(e)
             log.info("Sentry test issue has been sent successfully")
@@ -22,13 +22,14 @@ class SentryTestRunner {
     }
 
     /**
-     * ChannelRepositoryImpl.toDomain()에서 DB 레코드의 nullable 필드에
-     * !! 연산자를 사용하여 발생할 수 있는 NullPointerException을 시뮬레이션
+     * ChannelRepositoryImpl에서 channel 평균 지표 계산 시
+     * 분모가 0인 채로 정수 나눗셈을 수행하여 발생할 수 있는 ArithmeticException을 시뮬레이션
      */
-    private fun simulateNullPointerInToDomainV2() {
-        val nullableDescription: String? = null
-        // ChannelRepositoryImpl.kt:74 의 this.description!! 와 동일한 패턴
+    private fun simulateArithmeticInChannelMetrics() {
+        val totalEvents = 100
+        val activeChannelCount = 0
+        // ChannelRepositoryImpl.kt 의 totalEvents / activeChannelCount 같은 패턴
         ChannelRepositoryImpl::class.java // stack trace에 클래스 참조 포함
-        val description = nullableDescription!!
+        val avgEventsPerChannel = totalEvents / activeChannelCount
     }
 }
